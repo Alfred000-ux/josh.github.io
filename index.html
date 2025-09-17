@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Array Methods for Beginners</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    input {
+      padding: 8px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .array-display {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    .result {
+      background-color: #e7f3fe;
+      padding: 10px;
+      border-left: 4px solid #2196F3;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>JavaScript Array Methods for Beginners</h1>
+  <p>This page demonstrates common JavaScript array methods. Click the buttons to see how they work!</p>
+
+  <h2>Current Array</h2>
+  <div id="currentArray" class="array-display">[1, 2, 3, 4, 5]</div>
+
+  <h2>Array Methods</h2>
+
+  <h3>Push (Add to end)</h3>
+  <input type="number" id="pushInput" placeholder="Enter number">
+  <button onclick="pushElement()">Push</button>
+  <div id="pushResult" class="result"></div>
+
+  <h3>Pop (Remove from end)</h3>
+  <button onclick="popElement()">Pop</button>
+  <div id="popResult" class="result"></div>
+
+  <h3>Shift (Remove from start)</h3>
+  <button onclick="shiftElement()">Shift</button>
+  <div id="shiftResult" class="result"></div>
+
+  <h3>Unshift (Add to start)</h3>
+  <input type="number" id="unshiftInput" placeholder="Enter number">
+  <button onclick="unshiftElement()">Unshift</button>
+  <div id="unshiftResult" class="result"></div>
+
+  <h3>Map (Transform each element)</h3>
+  <button onclick="mapElements()">Map (Double each)</button>
+  <div id="mapResult" class="result"></div>
+
+  <h3>Filter (Select elements)</h3>
+  <button onclick="filterElements()">Filter (Even numbers)</button>
+  <div id="filterResult" class="result"></div>
+
+  <h3>Reduce (Combine elements)</h3>
+  <button onclick="reduceElements()">Reduce (Sum)</button>
+  <div id="reduceResult" class="result"></div>
+
+  <h3>ForEach (Loop through)</h3>
+  <button onclick="forEachElements()">ForEach (Log each)</button>
+  <div id="forEachResult" class="result"></div>
+
+  <h3>Slice (Extract part)</h3>
+  <button onclick="sliceElements()">Slice (1 to 3)</button>
+  <div id="sliceResult" class="result"></div>
+
+  <h3>Splice (Remove/Replace)</h3>
+  <button onclick="spliceElements()">Splice (Remove 2 from index 1)</button>
+  <div id="spliceResult" class="result"></div>
+
+  <script>
+    // Initialize the array
+    let arr = [1, 2, 3, 4, 5];
+
+    // Function to update the displayed array
+    function updateArrayDisplay() {
+      document.getElementById('currentArray').innerHTML = '[' + arr.join(', ') + ']';
+    }
+
+    // Push method
+    function pushElement() {
+      const value = parseInt(document.getElementById('pushInput').value);
+      if (!isNaN(value)) {
+        const before = arr.slice();
+        arr.push(value);
+        document.getElementById('pushResult').innerHTML = 'Before: [' + before.join(', ') + ']<br>After: [' + arr.join(', ') + ']';
+        updateArrayDisplay();
+        document.getElementById('pushInput').value = '';
+      } else {
+        alert('Please enter a valid number');
+      }
+    }
+
+    // Pop method
+    function popElement() {
+      const before = arr.slice();
+      const removed = arr.pop();
+      document.getElementById('popResult').innerHTML = 'Before: [' + before.join(', ') + ']<br>Removed: ' + removed + '<br>After: [' + arr.join(', ') + ']';
+      updateArrayDisplay();
+    }
+
+    // Shift method
+    function shiftElement() {
+      const before = arr.slice();
+      const removed = arr.shift();
+      document.getElementById('shiftResult').innerHTML = 'Before: [' + before.join(', ') + ']<br>Removed: ' + removed + '<br>After: [' + arr.join(', ') + ']';
+      updateArrayDisplay();
+    }
+
+    // Unshift method
+    function unshiftElement() {
+      const value = parseInt(document.getElementById('unshiftInput').value);
+      if (!isNaN(value)) {
+        const before = arr.slice();
+        arr.unshift(value);
+        document.getElementById('unshiftResult').innerHTML = 'Before: [' + before.join(', ') + ']<br>After: [' + arr.join(', ') + ']';
+        updateArrayDisplay();
+        document.getElementById('unshiftInput').value = '';
+      } else {
+        alert('Please enter a valid number');
+      }
+    }
+
+    // Map method
+    function mapElements() {
+      const original = arr.slice();
+      const mapped = arr.map(x => x * 2);
+      document.getElementById('mapResult').innerHTML = 'Original: [' + original.join(', ') + ']<br>Mapped (doubled): [' + mapped.join(', ') + ']';
+    }
+
+    // Filter method
+    function filterElements() {
+      const original = arr.slice();
+      const filtered = arr.filter(x => x % 2 === 0);
+      document.getElementById('filterResult').innerHTML = 'Original: [' + original.join(', ') + ']<br>Filtered (evens): [' + filtered.join(', ') + ']';
+    }
+
+    // Reduce method
+    function reduceElements() {
+      const sum = arr.reduce((acc, curr) => acc + curr, 0);
+      document.getElementById('reduceResult').innerHTML = 'Array: [' + arr.join(', ') + ']<br>Sum: ' + sum;
+    }
+
+    // ForEach method
+    function forEachElements() {
+      let log = '';
+      arr.forEach((element, index) => {
+        log += 'Element at index ' + index + ': ' + element + '<br>';
+      });
+      document.getElementById('forEachResult').innerHTML = log;
+    }
+
+    // Slice method
+    function sliceElements() {
+      const sliced = arr.slice(1, 4);
+      document.getElementById('sliceResult').innerHTML = 'Original: [' + arr.join(', ') + ']<br>Sliced (1 to 3): [' + sliced.join(', ') + ']';
+    }
+
+    // Splice method
+    function spliceElements() {
+      const before = arr.slice();
+      const removed = arr.splice(1, 2);
+      document.getElementById('spliceResult').innerHTML = 'Before: [' + before.join(', ') + ']<br>Removed: [' + removed.join(', ') + ']<br>After: [' + arr.join(', ') + ']';
+      updateArrayDisplay();
+    }
+  </script>
+</body>
+</html>
